@@ -120,6 +120,48 @@ void erase(node **head,int k)
         free(thuk);
     }
 }
+// Tìm phần tử tại vị trí bất kì
+void find(node *head, int x)
+{
+    int i = 1;
+    while (head != NULL)
+    {
+        if(head->data == x)
+        {
+            printf("\nPhan tu %d xuat hien o vi tri %d",x,i);
+        }
+        i++;
+        head = head->next;
+    }
+}
+// Tìm phần tử lớn nhất
+void findMax(node *head)
+{
+    int max = head->data;
+    while (head != NULL)
+    {
+    if(head->data > max)
+        {
+            max = head->data;
+        }
+        head = head->next;
+    }
+    printf("\nPhan tu lon nhat la: %d",max);
+}
+// Tim phan tu nho nhat
+void findMin(node *head)
+{
+    int min = head->data;
+    while (head != NULL)
+    {
+    if(head->data < min)
+    {
+        min = head->data;
+    }
+    head = head->next;
+    }
+    printf("\nPhan tu nho nhat la: %d",min);
+}
 int main(){
     node *head =NULL; // phai luon khai bao cai nay trc
     int choice,x,k;
@@ -139,6 +181,9 @@ int main(){
         printf("4 . Xoa dau\n");
         printf("5 . Xoa cuoi \n");
         printf("6 . Xoa giua \n");
+        printf("7 . Tim phan tu bat ki \n");
+        printf("8 . Tim phan tu lon nhat \n");
+        printf("9 . Tim phan tu nho nhat \n");
         printf("0 . Thoat ! \n");
         printf("-----------------------------------\n");
         printf("nhap lua chon : ");
@@ -289,6 +334,20 @@ int main(){
                 erase(&head,k);
                 duyet(head);
             }
+        }
+        else if(choice ==7)
+        {
+            printf("nhap phan tu muon tim: "); 
+            scanf("%d",&x);
+            find(head,x);
+        }
+        else if(choice ==8)
+        {
+            findMax(head);
+        }
+        else if(choice ==9)
+        {
+            findMin(head);
         }
         else
         {
