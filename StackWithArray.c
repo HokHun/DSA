@@ -1,9 +1,8 @@
-// C Program for Implmentation of stack (array) using structure
+
 #include  <stdio.h>
 #include  <stdlib.h>
 #include  <limits.h>
 // Cài đặt stack bằng mảng
-// A structure to represent a stack 
 struct Stack { 
     int top; 
     int maxSize; 
@@ -15,15 +14,12 @@ struct Stack* create(int max)
     struct Stack* stack = (struct Stack*)malloc(sizeof(struct Stack)); 
     stack->maxSize = max; 
     stack->top = -1; 
-    stack->array = (int*)malloc(stack->maxSize * sizeof(int));
-    //here above memory for array is being created
-    // size would be 10*4 = 40
+    stack->array = (int*)malloc(stack->maxSize * sizeof(int));  //cấp phát động
+    // kích thước mỗi ô nhớ là 10*4 = 40
     return stack; 
 } 
 
-// Checking with this function is stack is full or not
-// Will return true is stack is full else false 
-//Stack is full when top is equal to the last index 
+// kiểm tra stack đầy không
 int isFull(struct Stack* stack) 
 { 
     if(stack->top == stack->maxSize - 1){
@@ -33,14 +29,14 @@ int isFull(struct Stack* stack)
     return stack->top == stack->maxSize - 1; 
 } 
   
-// By definition the Stack is empty when top is equal to -1 
+// kiểm tra stack có rỗng không
 // Will return true if top is -1
 int isEmpty(struct Stack* stack) 
 { 
     return stack->top == -1; 
 }
 
-// Push function here, inserts value in stack and increments stack top by 1
+//thêm phần tử
 void push(struct Stack* stack, int item) 
 { 
     if (isFull(stack)) 
@@ -49,7 +45,7 @@ void push(struct Stack* stack, int item)
     printf("We have pushed %d to stack\n", item); 
 }
 
-// Function to remove an item from stack.  It decreases top by 1 
+// Xóa phần tử 
 int pop(struct Stack* stack) 
 { 
     if (isEmpty(stack)) 
@@ -57,7 +53,7 @@ int pop(struct Stack* stack)
     return stack->array[stack->top--]; 
 } 
   
-// Function to return the top from stack without removing it 
+// tìm phần tử đầu danh sách nhung không xóa
 int peek(struct Stack* stack) 
 { 
     if (isEmpty(stack)) 
@@ -72,14 +68,13 @@ struct Stack* stack = create(10);
     push(stack, 5); 
     push(stack, 10); 
     push(stack, 15);
-    
     int flag=1;
     while(flag)
     {
         if(!isEmpty(stack))
-            printf("We have popped %d from stack\n", pop(stack));
+            printf("Xoa phan tu %d khoi stack\n", pop(stack));
         else
-            printf("Can't Pop stack must be empty\n");
+            printf("Khong the xoa vi stack rong!\n");
             flag=0;
     }
     return 0;
