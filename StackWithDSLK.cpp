@@ -118,6 +118,67 @@ int Get_k (stack &s,int k){
 		return result;
 	}
 }
+//void Insert_k (stack &s, int k, item x){
+//    stack Q;
+//    init(Q);
+//    node *p = createNode(x);
+//    if(k == 1){ // thêm vào d?u stack
+//        push(Q,x);
+//        while(!isEmpty(s)){
+//            push(Q,pop(s));
+//        }
+//        s = Q; // gán l?i stack cho s
+//    }
+//    else if(k > 1 && k <= Len(s)){ // thêm vào gi?a stack
+//        for(int i = 1; i < k; i++){
+//            push(Q,pop(s));
+//        }
+//        push(Q,x); // thêm ph?n t? vào v? trí k
+//        while(!isEmpty(s)){
+//            push(Q,pop(s));
+//        }
+//        s = Q; // gán l?i stack cho s
+//    }
+//    else if(k == Len(s) + 1){ // thêm vào cu?i stack
+//        while(!isEmpty(s)){
+//            push(Q,pop(s));
+//        }
+//        push(Q,x); // thêm ph?n t? vào v? trí cu?i cùng c?a stack
+//        s = Q; // gán l?i stack cho s
+//    }
+//    else{
+//        printf("Vi tri them khong hop le!\n");
+//    }
+//}
+void Insert_k (stack &s, int k, item x){
+    stack Q;
+    init(Q);
+    node *p = createNode(x);
+    if(k == 1){ // thêm vào d?u stack
+        push(s,x); // thêm ph?n t? vào d?u stack
+    }
+    else if(k > 1 && k <= Len(s)){ // thêm vào gi?a stack
+        for(int i = 1; i < k; i++){
+            push(Q,pop(s));
+        }
+        push(s,x); // thêm ph?n t? vào v? trí k
+        while(!isEmpty(Q)){
+            push(s,pop(Q));
+        }
+    }
+    else if(k == Len(s) + 1){ // thêm vào cu?i stack
+        while(!isEmpty(s)){
+            push(Q,pop(s));
+        }
+        push(Q,x); // thêm ph?n t? vào v? trí cu?i cùng c?a stack
+        while(!isEmpty(Q)){
+            push(s,pop(Q));
+        }
+    }
+    else{
+        printf("Vi tri them khong hop le!\n");
+    }
+}
 
 void Clear(stack &s){ // xoa tat ca stack
 	s.top = NULL;
@@ -140,7 +201,12 @@ int main() {
   scanf("%d",&k);
   printf("phan tu o vi tri %d la: %d",k, Get_k(s,k));
   XuatMang(s);
-
+  printf("nhap vi tri can them : ");
+  scanf("%d",&k);
+  printf("nhap phan tu can them : ");
+  scanf("%d",&x);
+  Insert_k(s,k,x);
+  XuatMang(s);
 }
 
 
