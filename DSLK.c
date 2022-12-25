@@ -162,6 +162,30 @@ void findMin(node *head)
     }
     printf("\nPhan tu nho nhat la: %d",min);
 }
+// ghep 2 node lai voi nhau
+void mergeNode(node *a, node *b){
+    node *current = a;
+    while(current->next != NULL){
+        current = current->next;
+    }
+    current->next = b;
+}
+// Tìm tất cả các số giống nhau
+void findAll(node **head, int x) {
+  // Duyệt qua tất cả các node trong hàng đợi
+  int i = 1;
+  node *temp = *head;
+  while (temp != NULL) {
+    // Nếu phần tử trong node này có giá trị bằng x, in ra vị trí của nó
+    if (temp->data == x) {
+      printf("Tim thay %d tai vi tri %d\n", x, i);
+    }
+    temp = temp->next;
+    i++;
+  }
+}
+
+
 int main(){
     node *head =NULL; // phai luon khai bao cai nay trc
     int choice,x,k;
@@ -184,6 +208,7 @@ int main(){
         printf("7 . Tim phan tu bat ki \n");
         printf("8 . Tim phan tu lon nhat \n");
         printf("9 . Tim phan tu nho nhat \n");
+        printf("10 . Tim tat ca phan tu giong nhau \n");
         printf("0 . Thoat ! \n");
         printf("-----------------------------------\n");
         printf("nhap lua chon : ");
@@ -348,6 +373,12 @@ int main(){
         else if(choice ==9)
         {
             findMin(head);
+        }
+        else if(choice ==10)
+        {
+            printf("nhap so muon tim: "); 
+            scanf("%d",&x); 
+            findAll(&head,x);
         }
         else
         {
