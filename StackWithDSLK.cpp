@@ -118,6 +118,7 @@ int Get_k (stack &s,int k){
 		return result;
 	}
 }
+// hàm này thêm vào nhung xuat ra bi doi thu tu ngan xep
 //void Insert_k (stack &s, int k, item x){
 //    stack Q;
 //    init(Q);
@@ -150,6 +151,7 @@ int Get_k (stack &s,int k){
 //        printf("Vi tri them khong hop le!\n");
 //    }
 //}
+//
 void Insert_k (stack &s, int k, item x){
     stack Q;
     init(Q);
@@ -179,17 +181,42 @@ void Insert_k (stack &s, int k, item x){
         printf("Vi tri them khong hop le!\n");
     }
 }
-
+int Find(stack s, item x)
+{
+node *p = s.top;
+int pos = 1; // v? trí b?t d?u t? 1
+while (p != NULL)
+{
+if (p->data == x)
+{
+return pos;
+}
+p = p->next;
+pos++;
+}
+return -1; // không tìm th?y ph?n t? trong stack
+}
 void Clear(stack &s){ // xoa tat ca stack
 	s.top = NULL;
 }
 int main() {
   stack s;
+  item x;
   init(s);
   int k;
   NhapMang(s);
   XuatMang(s);
-  item x;
+  printf("nhap so can tim ");
+  scanf("%d",&x);
+  int pos = Find(s, x);
+  if (pos != -1)
+  {
+    printf("Phan tu co gia tri %d nam o vi tri %d trong stack\n",x, pos);
+  }
+  else
+  {
+    printf("Khong tim thay phan tu co gia tri %d trong stack\n",x);
+  }
   printf("Nhap phan tu chen vao ngan xep: ");
   scanf("%d",&x);
   push(s,x);
