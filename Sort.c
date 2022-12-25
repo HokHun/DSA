@@ -15,11 +15,12 @@ void XuatMang(int a[],int n){
 
 // Chọn trực tiếp
 void SwapSelectionSort(int *min,int *i)
-{
+{ // nếu giảm dần thì thay min bằng max
     int temp = *min;
     *min = *i;
     *i = temp;
 }
+
 void SelectionSort(int a[],int n )
 {
     int min,i,j; // chỉ số phần tử nhỏ nhất trong dãy hiện hành
@@ -27,7 +28,8 @@ void SelectionSort(int a[],int n )
     {
         min = i;
         for(j = i+1; j <n ; j++)
-                if (a[j ] < a[min])
+                if (a[j ] < a[min]) // tăng dần
+                // if (a[j ] > a[min]) // giảm dần
                     min = j; // lưu vtrí phần tử hiện nhỏ nhất
                 SwapSelectionSort(&a[min],&a[i]); 
     // truyền tham chiếu, nếu hàm swap truyền tham chiếu "&" dc( như C++) thì ko cần truyền tham chiếu ở đây
@@ -43,7 +45,8 @@ void InsertionSort(int a[], int n )
     {
         x = a[i]; pos = i-1;
         // tìm vị trí chèn x
-        while((pos >= 0)&&(a[pos] > x))
+        while((pos >= 0)&&(a[pos] > x)) // tăng dần
+        while((pos >= 0)&&(a[pos] < x)) // giảm dần
         {//kết hợp dời chỗ các phần tử sẽ đứng sau x trong dãy mới   
             a[pos+1] = a[pos];
             pos--;
@@ -52,7 +55,7 @@ void InsertionSort(int a[], int n )
     }
 }
 // ---------------------------------------------------------------------------------------------------------
-// Chèn nhị phân
+// Chèn nhị phân  // bug
 void BInsertionSort(int a[],int n )
 {
     int l,r,m,i; // I=left , r=right, m=mid
@@ -63,7 +66,8 @@ void BInsertionSort(int a[],int n )
         while(i<=r) // tìm vị trí chèn x
         {       
             m = (l+r)/2; // tìm vị trí thích hợp m
-            if(x < a[m]) r = m-1;
+            if(x <= a[m]) r = m-1;// tăng dần
+            // if(x > a[m]) r = m-1;// giảm dần
             else l = m+1;
         }
         for(int j = i-1 ; j >=l ; j--)
@@ -86,7 +90,8 @@ void InterchangeSort(int a[], int n )
     int i, j;
     for (i = 0 ; i<n-1 ; i++)
         for (j =i+1; j < n ; j++)
-            if(a[j ]< a[i]) // Thỏa 1 cặp nghịch thế
+            if(a[j ]< a[i]) // (tăng dần)Thỏa 1 cặp nghịch thế
+            // if(a[j ]> a[i]) // (giảm dần)Thỏa 1 cặp nghịch thế
                 SwapInterchangeSort(&a[i], &a[j]);
 }
 // ---------------------------------------------------------------------------------------------------------
@@ -104,7 +109,8 @@ void BubbleSort(int a[],int n)
     {
         for (j =n-1; j >i ; j --)
         {
-            if(a[j]< a[j-1])// nếu sai vị trí thì đổi chỗ
+            if(a[j]< a[j-1])//(tăng dần) nếu sai vị trí thì đổi chỗ
+            // if(a[j]> a[j-1])//(giảm dần) nếu sai vị trí thì đổi chỗ
             {               
                 u = j-1; // gán u = j -1 để swap cho dễ
                 SwapBubbleSort(&a[j], &a[u]);
@@ -122,6 +128,7 @@ void SwapShakeSort(int *j,int *u )
 }
 void ShakeSort(int a[],int n)
 {
+    // nếu giảm dần thì đổi dấu 2 điều kiện của if
     int i, j;
     int left, right, k, u;  // đặt u để gán u = j -1 hoặc j+1 để swap cho dễ
     left = 0; right = n-1; //đoạn l->r là đoạn cần được sắp xếp
@@ -130,7 +137,8 @@ void ShakeSort(int a[],int n)
     {
         for (j = right; j > left; j --) //đẩy phần tử nhỏ về đầu mảng
         {
-            if (a[j]< a[j-1])
+            if (a[j]< a[j-1]) //(tăng dần)
+            // if (a[j]> a[j-1]) // (giảm dần)
             {
                 u = j-1;
                 SwapShakeSort(&a[j],&a[u]);
@@ -140,7 +148,8 @@ void ShakeSort(int a[],int n)
         left = k; //loại phần tử đã có thứ tự ở đầu dãy
         for (j = left; j < right; j ++)
         {
-            if (a[j]> a[j+1])
+            if (a[j]> a[j+1]) // tăng dần
+            // if (a[j]< a[j+1]) // giảm dần
             {
                 u = j+1;
                 SwapShakeSort(&a[j],&a[u]);
@@ -162,7 +171,8 @@ void ShellSort(int a[],int n, int h[], int k)
         {
             x = a[i];
             j = i-len; // a[j] đứng kề trước a[i] trong cùng dãy con
-            while ((x<a[j])&&(j>=0))// sắp xếp dãy con chứa x
+            while ((x<a[j])&&(j>=0))//(tăng dần) sắp xếp dãy con chứa x
+            // while ((x>a[j])&&(j>=0))//(giảm dần) sắp xếp dãy con chứa x
             { // bằng phương pháp chèn trực tiếp
                 a[j+len] = a[j];
                 j = j - len;
@@ -181,6 +191,7 @@ void SwapHeapSort( int *u,int *r)
 }
 void shift(int a[],int l,int r)
 {
+    // giảm dần thay đổi 2 điều kiện của if
     int x,i,j;
     i=l;
     j=2*i+1;
@@ -189,10 +200,12 @@ void shift(int a[],int l,int r)
     { 
         if(j<r)
         {
-            if(a[j]<a[j+1]) //tim phan tu lon nhat a[j] va a[j+1]
+            if(a[j]<a[j+1]) //(tăng dần) tim phan tu lon nhat a[j] va a[j+1]
+            // if(a[j]>a[j+1]) //(giảm dần) tim phan tu lon nhat a[j] va a[j+1]
             j++; //luu chi so cua phan tu nho nhat trong hai phan tu
         }
-        if(a[j]<=x)
+        if(a[j]<=x)// tăng dần
+        // if(a[j]>=x)// giảm dần
         {
             return;
         }
@@ -243,13 +256,16 @@ void SwapQuickSort(int *i,int *j)
 }
 void QuickSort(int a[], int left, int right)
 { 
+    // nếu giảm dần thì thay đổi điều kiện 2 vòng lặp while
     int i, j, x;
     x = a[(left+right)/2];
     i = left; j = right;
     while(i < j)
     {
-        while(a[i] < x) i++;
-        while(a[j] > x) j--;
+        while(a[i] < x) i++;// tăng dần
+        // while(a[i] > x) i++;// giảm dần
+        while(a[j] > x) j--;// tăng dần
+        // while(a[j] < x) j--;// giảm dần
         if(i <= j)
         {
             SwapQuickSort(&a[i],&a[j]);
@@ -283,12 +299,14 @@ void MergeSort(int a[], int left, int right)
 
 void Merge(int a[], int left, int mid, int right)
 {
+    //Lưu ý: nếu giảm dần thì thay đổi điều kiện if
     int i = left, j = mid + 1, p, index = left;
     int temp[10];
 
     while(i<=mid && j<=right)
     {
-        if(a[i]<a[j]) { temp[index] = a[i]; i = i+1; } else { temp[index] = a[j]; j = j+1; } index++; } if(i>mid)
+        if(a[i]<a[j]) { temp[index] = a[i]; i = i+1; } else { temp[index] = a[j]; j = j+1; } index++; } if(i>mid)// tăng dần
+        // if(a[i]>a[j]) { temp[index] = a[i]; i = i+1; } else { temp[index] = a[j]; j = j+1; } index++; } if(i>mid)// giảm dần
     {
         while(j<=right)
         {
@@ -337,17 +355,16 @@ int main(){
     // InterchangeSort(arr,n);
     // BubbleSort(arr,n);
     // ShakeSort(arr,n);
-    // hrr[] = {5, 3, 1};
-    // k = sizeof(hrr) / sizeof(hrr[0]);
-    printf("Nhap kich thuoc cua mang: ");
-    scanf("%d", &k);
-    printf("Nhap kich thuoc cua day khoang cach: ");
-    for (int i = 0; i < k; i++) {
-    scanf("%d", &hrr[i]);
-}
-    ShellSort(arr,n,hrr,k); // còn đang lỗi
+    // ShellSort
+    // printf("Nhap kich thuoc cua mang: ");
+    // scanf("%d", &k);
+    // printf("Nhap kich thuoc cua day khoang cach: ");
+    // for (int i = 0; i < k; i++) {
+    //     scanf("%d", &hrr[i]);
+    // }
+    // ShellSort(arr,n,hrr,k); 
     // HeapSort(arr,n);
-    // QuickSort(arr,0,n-1);
+    QuickSort(arr,0,n-1);
     // MergeSort(arr,0,n-1); 
     XuatMang(arr,n);
 }
